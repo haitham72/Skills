@@ -66,11 +66,11 @@ Output Format: Use Markdown with bold headers. Keep descriptions dense and factu
 mistralai/ministral-3-3b
 
 1. VISUAL SUMMARY
-   The image captures Sheikh Hamdan bin Mohammed Al Nahyan in a dimly lit, indoor setting, likely during an event. He is seen wearing traditional attire (ghutra and kandura) with a contemplative expression. The background is slightly blurred but suggests a formal or cultural gathering.
+   The image captures Sheikh Moahmed bin Zayed Al Nahyan in a dimly lit, indoor setting, likely during an event. He is seen wearing traditional attire (ghutra and kandura) with a contemplative expression. The background is slightly blurred but suggests a formal or cultural gathering.
 
 2. KEY SUBJECTS & IDENTITIES
 
-PRIMARY SUBJECT: Sheikh Mohamed Bin Zayed Al Nahyan.
+PRIMARY SUBJECT: Sheikh Moahmed bin Zayed Al Nahyan.
 Appearance Confirmation: Ghutra style, kandura with gold trim, and facial features align with official photos of Hamdan (younger, more casual/athletic context).
 Attire: Kandura in white with gold embroidery; ghutra is standard for UAE leadership but slightly loose fit.
 CRITICAL RULES APPLIED: a) Distinction from MBZ: MBZ typically wears darker bishts and more formal state attire (e.g., black kandura). b) No other VIPs visibly present in the frame.

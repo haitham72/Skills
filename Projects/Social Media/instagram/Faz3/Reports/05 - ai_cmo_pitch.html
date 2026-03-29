@@ -2,745 +2,573 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI CMO — Intelligent Reputation Command</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AI Company · HHPO · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#F7F5F0;
-  --bg2:#EFECE6;
-  --bg3:#E8E4DC;
-  --panel:#FFFFFF;
-  --panel2:#FAFAF7;
-  --border:rgba(160,130,80,0.2);
-  --border-soft:rgba(0,0,0,0.07);
-  --gold:#9A7030;
-  --gold-dim:rgba(154,112,48,0.3);
-  --gold-pale:rgba(154,112,48,0.07);
-  --gold-bg:rgba(154,112,48,0.05);
-  --ink:#18160F;
-  --ink2:#3A3628;
-  --muted:#7A7468;
-  --muted2:#A09890;
-  --green:#2A7050;
-  --green-pale:rgba(42,112,80,0.08);
-  --red:#A03028;
-  --red-pale:rgba(160,48,40,0.07);
-  --blue:#2A5888;
-  --blue-pale:rgba(42,88,136,0.08);
-  --sage:#6B7E5A;
+  --bg:#F8F6F1;
+  --white:#FFFFFF;
+  --ink:#141210;
+  --ink2:#2E2C28;
+  --muted:#888480;
+  --faint:#C8C4BC;
+  --line:rgba(0,0,0,0.08);
+  --gold:#8C6A28;
+  --gold-bg:rgba(140,106,40,0.06);
+  --gold-line:rgba(140,106,40,0.22);
+  --green:#2A6845;
+  --red:#8C2820;
+  --blue:#284878;
+  --amber:#8C5A20;
 }
-html,body{height:100%;overflow:hidden;background:var(--bg);}
 
-/* Subtle texture */
-body::before{content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='rgba(0,0,0,0.04)'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:999;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--ink);}
 
-/* ── DECK ── */
-#deck{position:fixed;inset:0;}
-.slide{position:absolute;inset:0;opacity:0;pointer-events:none;
-  transform:translateX(36px);
-  transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);}
-.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
-.slide.exit{opacity:0;transform:translateX(-28px);}
-.stagger>*{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
-.slide.active .stagger>*:nth-child(1){opacity:1;transform:none;transition-delay:.18s;}
-.slide.active .stagger>*:nth-child(2){opacity:1;transform:none;transition-delay:.30s;}
-.slide.active .stagger>*:nth-child(3){opacity:1;transform:none;transition-delay:.42s;}
-.slide.active .stagger>*:nth-child(4){opacity:1;transform:none;transition-delay:.54s;}
-.slide.active .stagger>*:nth-child(5){opacity:1;transform:none;transition-delay:.66s;}
-.slide.active .stagger>*:nth-child(6){opacity:1;transform:none;transition-delay:.78s;}
+/* ── SECTION = ONE SLIDE ── */
+.section{
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px 28px 48px;
+  position:relative;
+  border-bottom:1px solid var(--line);
+}
+.section:last-child{border-bottom:none;}
 
-/* ── CHROME ── */
-#prog{position:fixed;top:0;left:0;height:2px;background:var(--gold);transition:width .5s ease;z-index:100;box-shadow:0 0 6px rgba(154,112,48,0.3);}
-#badge{position:fixed;top:20px;left:26px;font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;z-index:100;}
-#counter{position:fixed;top:20px;right:26px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px;z-index:100;}
-#nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:6px;z-index:100;}
-.dot{width:4px;height:4px;border-radius:50%;background:var(--muted2);cursor:pointer;transition:all .35s;}
-.dot.active{background:var(--gold);width:22px;border-radius:2px;}
-.nbtn{background:var(--panel);border:1px solid var(--border);color:var(--gold);
-  font-size:13px;cursor:pointer;padding:6px 14px;border-radius:4px;
-  transition:all .2s;font-family:'DM Sans',sans-serif;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
-.nbtn:hover{background:var(--gold-pale);}
+/* Top gold rule per section */
+.section::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(to right,transparent,var(--gold) 35%,var(--gold) 65%,transparent);
+}
+.section:first-child::before{display:none;}
 
-/* ── COMPONENTS ── */
-.label{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
-.h-display{font-family:'Playfair Display',serif;color:var(--ink);line-height:1.07;}
-.body-text{font-family:'DM Sans',sans-serif;color:var(--muted);font-size:13.5px;line-height:1.72;}
-.card{background:var(--panel);border:1px solid var(--border-soft);border-radius:10px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
-.gold-card{background:var(--gold-bg);border:1px solid var(--border);border-radius:10px;padding:18px 20px;}
-.rule-full{width:100%;height:1px;background:var(--border-soft);}
-.tag{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1.5px;padding:3px 9px;border-radius:3px;display:inline-block;text-transform:uppercase;}
-.tag-gold{background:var(--gold-pale);color:var(--gold);border:1px solid var(--border);}
-.tag-green{background:var(--green-pale);color:var(--green);border:1px solid rgba(42,112,80,0.2);}
-.tag-red{background:var(--red-pale);color:var(--red);border:1px solid rgba(160,48,40,0.2);}
-.tag-blue{background:var(--blue-pale);color:var(--blue);border:1px solid rgba(42,88,136,0.2);}
-.tag-sage{background:rgba(107,126,90,0.08);color:var(--sage);border:1px solid rgba(107,126,90,0.2);}
+/* ── COVER special ── */
+.cover{
+  background:var(--bg);
+  padding:72px 28px 56px;
+}
+.cover::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1.5px;
+  background:linear-gradient(to right,transparent,var(--gold) 35%,var(--gold) 65%,transparent);
+}
 
-.slide-inner{height:100%;display:flex;flex-direction:column;padding:58px 68px 46px;}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;}
+/* ── FIXED NAV (scroll dots) ── */
+#side-nav{
+  position:fixed;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:200;
+}
+#side-nav a{
+  display:block;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--faint);
+  text-decoration:none;
+  transition:all .3s;
+}
+#side-nav a.active,#side-nav a:hover{
+  background:var(--gold);
+  height:18px;
+  border-radius:3px;
+}
 
-.proof-num{font-family:'Playfair Display',serif;color:var(--gold);font-weight:600;line-height:1;}
-.pipe-node{background:var(--panel);border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
-.pipe-node-title{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink2);margin-bottom:3px;}
-.pipe-node-sub{font-family:'DM Mono',monospace;font-size:7.5px;color:var(--muted);letter-spacing:1px;}
-.rpt-card{background:var(--panel2);border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
-.rpt-header{padding:10px 14px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;gap:8px;}
-.rpt-dot{width:7px;height:7px;border-radius:50%;}
-.rpt-body{padding:10px 14px;}
-.rpt-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.04);}
-.rpt-key{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);}
-.rpt-val{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--ink2);}
-.find-card{background:var(--panel);border:1px solid var(--border-soft);border-radius:10px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.05);border-left:3px solid var(--gold);}
+/* ── FIXED BADGE ── */
+#top-badge{
+  position:fixed;
+  top:16px;left:16px;
+  font-family:'DM Mono',monospace;
+  font-size:8.5px;color:var(--gold);
+  letter-spacing:2.5px;text-transform:uppercase;
+  z-index:200;
+  background:rgba(248,246,241,0.9);
+  padding:4px 8px;
+  border-radius:3px;
+  backdrop-filter:blur(8px);
+}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.display{font-family:'Playfair Display',serif;color:var(--ink);line-height:1.08;}
+.body-t{font-family:'DM Sans',sans-serif;color:var(--muted);font-size:14px;line-height:1.72;}
+.hr{width:100%;height:1px;background:var(--line);margin:16px 0;}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:0 1px 8px rgba(0,0,0,0.04);margin-bottom:10px;}
+.card:last-child{margin-bottom:0;}
+.gcard{background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:10px;padding:16px 18px;margin-bottom:10px;}
+.gcard:last-child{margin-bottom:0;}
+
+/* ── TAGS ── */
+.tag{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:2px;display:inline-block;}
+.tg{background:rgba(42,104,69,0.09);color:var(--green);border:1px solid rgba(42,104,69,0.2);}
+.tr{background:rgba(140,40,32,0.09);color:var(--red);border:1px solid rgba(140,40,32,0.2);}
+.to{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-line);}
+.tb{background:rgba(40,72,120,0.08);color:var(--blue);border:1px solid rgba(40,72,120,0.18);}
+.ta{background:rgba(140,90,32,0.09);color:var(--amber);border:1px solid rgba(140,90,32,0.2);}
+
+/* ── ORG NODE ── */
+.org-node{border-radius:8px;padding:10px 16px;text-align:center;}
+.org-hh{background:var(--gold-bg);border:1px solid var(--gold-line);}
+.org-ceo{background:var(--ink);border-radius:8px;padding:10px 16px;text-align:center;}
+.org-agent{background:var(--white);border:1px solid var(--line);border-radius:7px;padding:8px 10px;text-align:center;box-shadow:0 1px 5px rgba(0,0,0,0.04);}
+
+/* connector */
+.connector{width:1.5px;height:16px;background:var(--line);margin:0 auto;}
+.connector-gold{background:var(--gold-line);}
+
+/* grid helpers */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+
+/* step row */
+.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+.step-num{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--gold);width:44px;flex-shrink:0;padding-top:2px;}
+.step-body{}
+.step-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+.step-desc{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);line-height:1.55;}
+
+/* timeline */
+.tl-row{display:flex;gap:12px;padding-bottom:14px;margin-bottom:0;}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:12px;}
+.tl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.tl-line{flex:1;width:1px;background:var(--line);margin:3px 0;min-height:18px;}
+
+/* depth ladder (horizontal scroll safe) */
+.ladder{display:flex;overflow-x:auto;border-radius:8px;border:1px solid var(--line);background:var(--white);}
+.ladder-step{flex:1;min-width:80px;padding:10px 8px;text-align:center;border-right:1px solid var(--line);}
+.ladder-step:last-child{border-right:none;}
+
+/* scroll hint */
+.scroll-hint{text-align:center;padding:20px 0 4px;font-family:'DM Mono',monospace;font-size:9px;color:var(--faint);letter-spacing:2px;}
 </style>
 </head>
 <body>
-<div id="prog"></div>
-<div id="badge">AI CMO · HHPO</div>
-<div id="counter"></div>
-<div id="deck">
 
-<!-- ══ SLIDE 0 · COVER ══ -->
-<div class="slide active" id="s0" style="position:relative;overflow:hidden;">
-<div style="position:absolute;inset:0;pointer-events:none;">
-  <div style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(to bottom,transparent,var(--border-soft) 25%,var(--border-soft) 75%,transparent);"></div>
-  <div style="position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(to right,transparent,var(--border-soft) 25%,var(--border-soft) 75%,transparent);"></div>
-  <div style="position:absolute;bottom:-160px;right:-160px;width:520px;height:520px;background:radial-gradient(ellipse,rgba(154,112,48,0.07) 0%,transparent 70%);"></div>
-</div>
-<div style="height:100%;display:flex;flex-direction:column;justify-content:center;padding:72px 88px;">
-<div class="stagger">
-  <div style="display:flex;align-items:center;gap:14px;margin-bottom:36px;">
-    <div style="width:36px;height:1.5px;background:var(--gold);"></div>
-    <div style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--gold);letter-spacing:3px;">CONFIDENTIAL · INTERNAL PROPOSAL · MARCH 2026</div>
-  </div>
-  <div class="h-display" style="font-size:78px;font-weight:700;letter-spacing:-2px;margin-bottom:4px;">AI CMO</div>
-  <div class="h-display" style="font-size:24px;font-weight:400;font-style:italic;color:var(--muted);margin-bottom:44px;">Intelligent Reputation Command for Sheikh Hamdan</div>
-  <div style="max-width:520px;">
-    <div class="body-text" style="font-size:15px;line-height:1.78;">An AI-powered intelligence department that monitors, classifies, and advises on digital reputation — across every platform, in every language, across years of history — delivering action-ready intelligence to leadership in minutes.</div>
-  </div>
-  <div style="margin-top:52px;display:flex;align-items:center;gap:36px;">
-    <div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);margin-bottom:3px;">Submitted by</div>
-      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);">Haitham · AI Founding Engineer</div>
-    </div>
-    <div style="width:1px;height:44px;background:var(--border);"></div>
-    <div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);margin-bottom:3px;">Presented to</div>
-      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);">Nadi · IT Department</div>
-    </div>
-    <div style="width:1px;height:44px;background:var(--border);"></div>
-    <div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);margin-bottom:3px;">Status</div>
-      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--green);">Prototype Operational</div>
-    </div>
-  </div>
-</div>
-</div>
-<div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold) 35%,var(--gold) 65%,transparent);"></div>
-</div>
+<div id="top-badge">AI Company · HHPO</div>
 
-<!-- ══ SLIDE 1 · THE PROBLEM ══ -->
-<div class="slide" id="s1">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">01 · The Gap</div>
-  <div class="h-display" style="font-size:44px;margin-bottom:10px;">Millions of Voices.<br>No System Listening.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:32px;">Sheikh Hamdan's digital presence reaches tens of millions across Instagram, TikTok, YouTube, and Facebook. Every post generates thousands of comments — threats, campaigns, petitions, phishing links, poetry, national pride. Today, none of it is systematically read.</div>
-  <div class="grid-4" style="margin-bottom:26px;">
-    <div class="card">
-      <div class="proof-num" style="font-size:34px;">34M+</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;">Combined followers across all platforms</div>
+<!-- Side scroll nav -->
+<nav id="side-nav">
+  <a href="#s0"></a>
+  <a href="#s1"></a>
+  <a href="#s2"></a>
+  <a href="#s3"></a>
+  <a href="#s4"></a>
+  <a href="#s5"></a>
+  <a href="#s6"></a>
+  <a href="#s7"></a>
+</nav>
+
+<!-- ═══════════════════════ 0 · COVER ═══════════════════════ -->
+<section class="section cover" id="s0">
+  <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:10px;">
+    <div style="width:24px;height:1px;background:var(--gold);"></div>
+    INTERNAL OVERVIEW · 2026
+  </div>
+  <div class="display" style="font-size:52px;font-weight:600;letter-spacing:-1.5px;margin-bottom:4px;">One Request.</div>
+  <div class="display" style="font-size:52px;font-weight:400;font-style:italic;color:var(--muted);margin-bottom:32px;">The Entire Company Responds.</div>
+  <div class="body-t" style="font-size:15px;max-width:480px;margin-bottom:40px;">A sovereign AI company — six C-suite agents, a dev squad, and a CAIO — orchestrated by Claude Dispatch. Built to give HH the right intelligence, at the right time, in the fewest words possible.</div>
+  <div style="display:flex;flex-direction:column;gap:12px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:14px;color:var(--ink);">Mac Mini Cluster · Dubai, UAE</div>
     </div>
-    <div class="card">
-      <div class="proof-num" style="font-size:34px;">10K+</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;">Comments per post — impossible to read manually</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:14px;color:var(--ink);">Paperclip · Claude · n8n · MCP</div>
     </div>
-    <div class="card">
-      <div class="proof-num" style="font-size:34px;color:var(--red);">1,460</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;">Coordinated bot violations found — undetected until now</div>
-    </div>
-    <div class="card">
-      <div class="proof-num" style="font-size:34px;color:var(--red);">80+</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;">Malicious phishing links posted to loyal followers</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:14px;color:var(--green);">Minimal. Clear. Actionable.</div>
     </div>
   </div>
-  <div class="rule-full" style="margin-bottom:22px;"></div>
-  <div class="grid-3">
-    <div style="display:flex;gap:14px;">
-      <div style="width:2px;border-radius:1px;background:var(--red);flex-shrink:0;"></div>
+  <div class="scroll-hint" style="margin-top:40px;">SCROLL TO EXPLORE ↓</div>
+</section>
+
+<!-- ═══════════════════════ 1 · THE COMPANY ═══════════════════════ -->
+<section class="section" id="s1">
+  <div class="eyebrow">01 · The Company</div>
+  <div class="display" style="font-size:34px;margin-bottom:22px;">Two humans.<br>An entire C-suite of agents.</div>
+
+  <!-- HH -->
+  <div style="text-align:center;margin-bottom:0;">
+    <div class="org-node org-hh" style="display:inline-block;min-width:160px;">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--gold);letter-spacing:2px;margin-bottom:2px;">◆ HUMAN</div>
+      <div style="font-family:'Playfair Display',serif;font-size:16px;">Faz3 · HH</div>
+    </div>
+  </div>
+  <div class="connector connector-gold" style="margin:0 auto;"></div>
+  <!-- Dispatch -->
+  <div style="text-align:center;margin-bottom:0;">
+    <div class="org-ceo" style="display:inline-block;min-width:180px;">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(255,255,255,0.45);letter-spacing:2px;margin-bottom:2px;">◈ CEO AGENT</div>
+      <div style="font-family:'Playfair Display',serif;font-size:16px;color:white;">Claude Dispatch</div>
+    </div>
+  </div>
+  <div class="connector" style="margin:0 auto;"></div>
+
+  <!-- C-Suite grid -->
+  <div class="g3" style="margin-bottom:14px;">
+    <div class="org-agent">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);letter-spacing:1px;margin-bottom:2px;">CAIO</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Chief AI</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);">◆ Human</div>
+    </div>
+    <div class="org-agent">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">CTO</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Technology</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);">◈ Agent</div>
+    </div>
+    <div class="org-agent" style="border-color:var(--gold-line);">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);letter-spacing:1px;margin-bottom:2px;">CMO</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Marketing</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);">◈ Agent</div>
+    </div>
+    <div class="org-agent">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">COO</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Operations</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);">◈ Agent</div>
+    </div>
+    <div class="org-agent">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">MILSTRAT</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Defense</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);">◈ Agent</div>
+    </div>
+    <div class="org-agent">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">TRAVEL</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Logistics</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);">◈ Agent</div>
+    </div>
+  </div>
+
+  <!-- CAIO Products -->
+  <div style="background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:10px;padding:14px 16px;">
+    <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--gold);letter-spacing:2px;margin-bottom:10px;">CAIO PRODUCTS</div>
+    <div class="g2">
+      <div style="background:var(--white);border-radius:6px;border:1px solid var(--line);padding:8px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;">Diwan Hamdan</div>
+        <div style="margin-top:4px;"><span class="tag tg">Active</span></div>
+      </div>
+      <div style="background:var(--white);border-radius:6px;border:1px solid var(--gold-line);padding:8px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;">FAZ3 CMO</div>
+        <div style="margin-top:4px;"><span class="tag tg">Active</span></div>
+      </div>
+      <div style="background:var(--white);border-radius:6px;border:1px solid var(--line);padding:8px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;">SkyWarden v1.1</div>
+        <div style="margin-top:4px;"><span class="tag tr">Standby</span></div>
+      </div>
+      <div style="background:var(--white);border-radius:6px;border:1px solid var(--line);padding:8px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;">HHPO Fleet</div>
+        <div style="margin-top:4px;"><span class="tag ta">Live</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 2 · PHILOSOPHY ═══════════════════════ -->
+<section class="section" id="s2">
+  <div class="eyebrow">02 · Core Principle</div>
+  <div class="display" style="font-size:38px;margin-bottom:28px;">Reports that get read<br>change things.<br><span style="font-style:italic;color:var(--muted);">Dense reports don't.</span></div>
+
+  <div style="padding:16px 18px;background:rgba(140,40,32,0.04);border:1px solid rgba(140,40,32,0.12);border-radius:10px;margin-bottom:10px;">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--red);margin-bottom:8px;">✕ What fails</div>
+    <div style="display:flex;flex-direction:column;gap:5px;">
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">40-page PDF nobody opens</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">Every metric, every day</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">Data without a decision</div>
+    </div>
+  </div>
+
+  <div style="padding:16px 18px;background:rgba(42,104,69,0.05);border:1px solid rgba(42,104,69,0.15);border-radius:10px;margin-bottom:24px;">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--green);margin-bottom:8px;">✓ What works</div>
+    <div style="display:flex;flex-direction:column;gap:5px;">
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">One sentence when nothing happened</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">One alert when something did</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">Three facts, one recommendation</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);">Deep detail only when HH pulls it</div>
+    </div>
+  </div>
+
+  <div style="border-left:2px solid var(--gold);padding-left:16px;">
+    <div class="body-t" style="font-size:14px;font-style:italic;color:var(--ink2);">The system holds the full intelligence. It delivers only what the moment requires. HH asks — and the depth is there.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 3 · THE FLOW ═══════════════════════ -->
+<section class="section" id="s3">
+  <div class="eyebrow">03 · A Real Conversation</div>
+  <div class="display" style="font-size:28px;margin-bottom:24px;">"Show me my last 2 posts with Sheikh Mohammed bin Zayed."</div>
+
+  <div class="step">
+    <div class="step-num">STEP 1<br><span class="tag to" style="margin-top:3px;display:inline-block;">Faz3</span></div>
+    <div class="step-body">
+      <div class="step-title">Request sent</div>
+      <div class="step-desc">HH types one sentence into Claude Dispatch. The entire company hears it.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">STEP 2<br><span class="tag" style="margin-top:3px;display:inline-block;background:rgba(0,0,0,0.05);color:var(--ink2);border:1px solid var(--line);">CMO</span></div>
+    <div class="step-body">
+      <div class="step-title">CMO checks data — gap found</div>
+      <div class="step-desc">Yesterday's post has no comments yet. CMO flags it. Requests fresh data before proceeding.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">STEP 3<br><span class="tag to" style="margin-top:3px;display:inline-block;">CAIO</span></div>
+    <div class="step-body">
+      <div class="step-title">CAIO boots Social Media Tracker</div>
+      <div class="step-desc">Shallow scan: likes and comment count confirmed. Enough to verify — not enough to analyse.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">STEP 4<br><span class="tag tb" style="margin-top:3px;display:inline-block;">CTO</span></div>
+    <div class="step-body">
+      <div class="step-title">CTO pulls full comments</div>
+      <div class="step-desc">Apify API. $0.50 per 1K comments. Full dataset in 2 minutes. Confirmed to CMO.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">STEP 5<br><span class="tag to" style="margin-top:3px;display:inline-block;">CAIO</span></div>
+    <div class="step-body">
+      <div class="step-title">CAIO runs analytics</div>
+      <div class="step-desc">NLP classification, threat detection, trend analysis. Two clean HTML reports handed to CMO.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">STEP 6<br><span class="tag to" style="margin-top:3px;display:inline-block;">CMO→HH</span></div>
+    <div class="step-body">
+      <div class="step-title">Minimal report delivered</div>
+      <div class="step-desc">HH sees both posts. Immediately notices the Italian conspiracy visible across both — 6 months apart.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">STEP 7<br><span class="tag" style="margin-top:3px;display:inline-block;background:rgba(0,0,0,0.05);color:var(--ink2);border:1px solid var(--line);">HH pulls</span></div>
+    <div class="step-body">
+      <div class="step-title">HH asks for more depth</div>
+      <div class="step-desc">CMO checks embeddings. Retrieves 6-month aggregate. Sends it. Shares with media team.</div>
+    </div>
+  </div>
+  <div class="step" style="margin-bottom:0;">
+    <div class="step-num">STEP 8<br><span class="tag to" style="margin-top:3px;display:inline-block;">Company</span></div>
+    <div class="step-body">
+      <div class="step-title">The entire company acts</div>
+      <div class="step-desc">COO files report to UAE Cyber Crime Dept. Travel Agent boosts Italy visit score. SkyWarden surfaces a connection. New report to HH.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 4 · THE DISCOVERY ═══════════════════════ -->
+<section class="section" id="s4">
+  <div class="eyebrow">04 · What the System Found</div>
+  <div class="display" style="font-size:34px;margin-bottom:22px;">Six months apart.<br>Same fingerprint.</div>
+
+  <!-- Timeline -->
+  <div class="card" style="margin-bottom:14px;">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:14px;">Italian Campaign — Rise &amp; Fall</div>
+
+    <div class="tl-row">
+      <div class="tl-dot-col">
+        <div class="tl-dot" style="background:var(--muted);border:1.5px solid var(--faint);"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div style="padding-bottom:12px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);margin-bottom:3px;">DEC 2025</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">First Italian keywords detected. Isolated. Overlooked.</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-dot-col">
+        <div class="tl-dot" style="background:var(--red);"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div style="padding-bottom:12px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--red);margin-bottom:3px;">DEC 21 — PEAK</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Elon Musk post. 863 Italian flags. 37% RED. One bot: 794 comments on a single post.</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-dot-col">
+        <div class="tl-dot" style="background:var(--amber);"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div style="padding-bottom:12px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--amber);margin-bottom:3px;">JAN – MAR 2026</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Same actor. Same keywords. Present in all 10 posts. Adapting.</div>
+      </div>
+    </div>
+
+    <div class="tl-row" style="margin-bottom:0;">
+      <div class="tl-dot-col">
+        <div class="tl-dot" style="background:var(--gold);"></div>
+      </div>
       <div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px;">No Threat Detection</div>
-        <div class="body-text" style="font-size:12px;">Coordinated smear campaigns, impersonators posing as HH, Telegram phishing using his name — all currently invisible. Followers are being defrauded in his name with zero response.</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:14px;">
-      <div style="width:2px;border-radius:1px;background:var(--gold);flex-shrink:0;"></div>
-      <div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px;">No Content Intelligence</div>
-        <div class="body-text" style="font-size:12px;">Nobody knows which posts drive which audience emotion. No system tracks why the poetry posts create 3× more comments. No data connects thumbnail choice to engagement outcome.</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:14px;">
-      <div style="width:2px;border-radius:1px;background:var(--blue);flex-shrink:0;"></div>
-      <div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px;">No Historical Memory</div>
-        <div class="body-text" style="font-size:12px;">No system can answer: "How did Ramadan perform across the last 5 years? Which platform responded best? Did the Italian campaign start before December?" Context is lost every day.</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--gold);margin-bottom:3px;">MAR 2026</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Recent posts: 0.6–3.4% RED. Improving. One action removes 85% of RED volume.</div>
       </div>
     </div>
   </div>
-</div>
-</div>
-</div>
 
-<!-- ══ SLIDE 2 · PROOF OF WORK ══ -->
-<div class="slide" id="s2">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">02 · Proof of Work — Already Built</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">This Is Not a Proposal.<br>It Is a Running System.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:26px;">Before writing this document, a full working prototype was deployed against real data — 41,154 comments, 10 posts, one account. What you see below is output already delivered to the team this week.</div>
-  <div class="grid-2" style="flex:1;min-height:0;">
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="rpt-card">
-        <div class="rpt-header">
-          <div class="rpt-dot" style="background:var(--gold);"></div>
-          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--ink2);">MULTI-POST INTELLIGENCE · 10 POSTS · LIVE</div>
-          <div class="tag tag-green" style="margin-left:auto;">DELIVERED</div>
-        </div>
-        <div class="rpt-body">
-          <div class="rpt-row"><span class="rpt-key">Comments Analyzed</span><span class="rpt-val" style="color:var(--gold);">41,154</span></div>
-          <div class="rpt-row"><span class="rpt-key">Processing Time</span><span class="rpt-val" style="color:var(--green);">Under 4 minutes</span></div>
-          <div class="rpt-row"><span class="rpt-key">Health Score</span><span class="rpt-val" style="color:var(--green);">89.2% Safe</span></div>
-          <div class="rpt-row"><span class="rpt-key">RED Threats Caught</span><span class="rpt-val" style="color:var(--red);">1,441</span></div>
-          <div class="rpt-row"><span class="rpt-key">Italian Campaign Flags</span><span class="rpt-val" style="color:var(--red);">1,661 (cross-post)</span></div>
-          <div class="rpt-row" style="border:none;"><span class="rpt-key">Bot Timing Fingerprint</span><span class="rpt-val">22:00 GMT (confirmed)</span></div>
-        </div>
-      </div>
-      <div class="rpt-card">
-        <div class="rpt-header">
-          <div class="rpt-dot" style="background:var(--sage);"></div>
-          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--ink2);">COMPARATIVE ANALYSIS · FAZ3 vs MAKTOUM_MRM</div>
-          <div class="tag tag-sage" style="margin-left:auto;">DELIVERED</div>
-        </div>
-        <div class="rpt-body">
-          <div class="rpt-row"><span class="rpt-key">Posts Analyzed (Maktoum)</span><span class="rpt-val">24 posts, Nov–Mar</span></div>
-          <div class="rpt-row"><span class="rpt-key">Content Gap Identified</span><span class="rpt-val" style="color:var(--gold);">Boardroom fatigue</span></div>
-          <div class="rpt-row"><span class="rpt-key">Peak Post Explained</span><span class="rpt-val">UAE President (+378%)</span></div>
-          <div class="rpt-row" style="border:none;"><span class="rpt-key">Recs Issued</span><span class="rpt-val">5 actionable items</span></div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="gold-card">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;">Reports Delivered This Week</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Multi-Post Threat Intelligence</div><div class="tag tag-gold">INTERACTIVE HTML</div></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">SOC Risk Chart (stacked, live)</div><div class="tag tag-gold">INTERACTIVE HTML</div></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Bot & OSINT Intelligence Brief</div><div class="tag tag-gold">INTERACTIVE HTML</div></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Maktoum Performance Analysis</div><div class="tag tag-gold">INTERACTIVE HTML</div></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink2);">Trend Sparklines (stock-style)</div><div class="tag tag-gold">INTERACTIVE HTML</div></div>
-        </div>
-      </div>
-      <div class="card" style="flex:1;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;">Key Discoveries — Week One</div>
-        <div style="display:flex;flex-direction:column;gap:7px;">
-          <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">▸</span>@goat.58501309 — 1,460 violations, 10/10 posts. One bot. Named and ready to ban.</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--red);">▸</span>Telegram impersonator using HH's name to commit financial fraud against fans — passed to legal.</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span>#dubaiiranianStudents (150+ comments) — NLP confirmed civic petition, not hostile. Routed to PR.</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--green);">▸</span>Poetry posts drive 3× comment surge — fans respond with their own poetry, organically crowding out bots.</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--green);">▸</span>Nature content = 92.5% safe engagement average. Acts as algorithmic reset after high-risk posts.</div>
-        </div>
-      </div>
-    </div>
+  <div class="card" style="border-left:3px solid var(--red);margin-bottom:10px;">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:5px;">🇮🇹 What the bots were saying</div>
+    <div class="body-t" style="font-size:12px;">Delusional relationship claims (<em>bokhaled il padre, regina anna, il cobra</em>). Coordinated. Scripted. Deployed at scale on high-reach posts.</div>
   </div>
-</div>
-</div>
-</div>
 
-<!-- ══ SLIDE 3 · INTELLIGENCE FINDINGS ══ -->
-<div class="slide" id="s3">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">03 · Intelligence Findings — What the System Sees</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">Patterns No Human<br>Team Would Ever Find.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:26px;">These are not hypothetical capabilities. These are findings already extracted from real data during the prototype phase — discoveries that a team of ten scanning manually would never surface.</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;">
-    <div class="find-card" style="border-left-color:var(--red);">
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="font-size:22px;flex-shrink:0;">🇮🇹</div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;">The Italian Smear Campaign — Rise &amp; Fall Charted</div>
-          <div class="body-text" style="font-size:12px;">A coordinated Italian-language conspiracy network began attacking HH's posts in <strong style="color:var(--ink);">mid-December 2025</strong>. The system detected its rise, tracked it across multiple accounts over multiple months, and charted its intensity peak (863 flags on one post) and partial decline. No human reviewer would connect December comments to February patterns. The chart exists. The actors are named.</div>
-        </div>
-      </div>
-    </div>
-    <div class="find-card" style="border-left-color:var(--gold);">
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="font-size:22px;flex-shrink:0;">🕌</div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;">Political Attacks → Resolved by Cultural Counter-Programming</div>
-          <div class="body-text" style="font-size:12px;">Global political sentiment targeting UAE-affiliated accounts can be spotted early — before it escalates. The system identifies the source community and the trigger. More powerfully, it can recommend a counter: a Quran competition, a humanitarian announcement, a poetry moment — events proven to flood the comments with national pride and organically displace negativity.</div>
-        </div>
-      </div>
-    </div>
-    <div class="find-card" style="border-left-color:var(--green);">
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="font-size:22px;flex-shrink:0;">✍️</div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;">The Poetry Signal — 3× Comment Surge, Every Time</div>
-          <div class="body-text" style="font-size:12px;">Without exception, every post where HH shared poetry generated a dramatic comment surge — fans responding with their own poetry, stanzas, and verses. This pattern repeated across every poetry post in the dataset. Beyond engagement: the poetry comments organically overshadow negative or bot activity, creating a natural moderation effect driven by the audience itself.</div>
-        </div>
-      </div>
-    </div>
-    <div class="find-card" style="border-left-color:var(--blue);">
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="font-size:22px;flex-shrink:0;">📅</div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;">5-Year Event Memory — "How Did Ramadan Perform?"</div>
-          <div class="body-text" style="font-size:12px;">The system archives and queries across time. Ask: <em>"How did Ramadan perform on Instagram vs TikTok across the last 5 years?"</em> — it answers in seconds. Compare a single event across platforms, across years, across multiple accounts simultaneously. No other tool offers this for Arabic-language sovereign content.</div>
-        </div>
-      </div>
-    </div>
-    <div class="find-card" style="border-left-color:var(--sage);grid-column:1/-1;">
-      <div style="display:flex;align-items:center;gap:16px;">
-        <div style="font-size:22px;flex-shrink:0;">⚡</div>
-        <div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;">Speed Advantage: A Team of 10 vs This System</div>
-          <div class="body-text" style="font-size:12px;">A team of 10 analysts scanning posts manually: read 200–300 comments per hour, no cross-post correlation, no pattern detection, no historical context, no delivery. <strong style="color:var(--ink);">This system: 10,000 comments per post in under 4 minutes</strong> — delivers per-comment account name, comment text, direct link, risk classification, coordinated campaign flag, and a full post report with proven timeline tracking of recurring actors.</div>
-        </div>
-      </div>
-    </div>
+  <div class="card" style="border-left:3px solid var(--gold);margin-bottom:10px;">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:5px;">⚡ SkyWarden surfaces a connection</div>
+    <div class="body-t" style="font-size:12px;">Italian defense companies in simultaneous procurement talks about anti-drone systems. Attack campaign + procurement talks = overlapping December–June timeline. Passed to CAIO.</div>
   </div>
-</div>
-</div>
-</div>
 
-<!-- ══ SLIDE 4 · ARCHITECTURE ══ -->
-<div class="slide" id="s4">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">04 · System Architecture</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">Automated End-to-End.<br>Zero Manual Intervention.</div>
-  <div class="body-text" style="max-width:600px;margin-bottom:28px;">The entire pipeline — from data collection to delivered report — runs automatically via n8n MCP. No human triggers required. Schedule it, and it runs. A new post goes live; within minutes, analysis is en route to the team.</div>
-  <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
-    <div style="display:flex;gap:10px;">
-      <div style="width:82px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;border-right:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2);text-align:right;letter-spacing:1px;">DATA<br>LAYER</div>
-      </div>
-      <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-        <div class="pipe-node" style="border-color:rgba(201,100,50,0.3);">
-          <div class="pipe-node-title">Instagram</div><div class="pipe-node-sub">APIFY → OFFICIAL</div>
-        </div>
-        <div class="pipe-node" style="border-color:rgba(0,0,0,0.15);">
-          <div class="pipe-node-title">TikTok</div><div class="pipe-node-sub">APIFY → OFFICIAL</div>
-        </div>
-        <div class="pipe-node" style="border-color:rgba(255,0,0,0.2);">
-          <div class="pipe-node-title">YouTube</div><div class="pipe-node-sub">DATA API v3</div>
-        </div>
-        <div class="pipe-node" style="border-color:rgba(42,88,136,0.3);">
-          <div class="pipe-node-title">Facebook</div><div class="pipe-node-sub">GRAPH API</div>
-        </div>
-        <div class="pipe-node" style="border-color:var(--gold);border-style:dashed;">
-          <div class="pipe-node-title" style="color:var(--gold);">10+ Accounts</div><div class="pipe-node-sub">PARALLEL SCAN</div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:0 0 0 94px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);">↓  Raw data → CSV / JSON · Parallel · 10 accounts simultaneously</div>
-    <div style="display:flex;gap:10px;">
-      <div style="width:82px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;border-right:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2);text-align:right;letter-spacing:1px;">ORCHESTRATION</div>
-      </div>
-      <div style="flex:1;">
-        <div class="pipe-node" style="border-color:rgba(42,88,136,0.35);background:var(--blue-pale);text-align:left;display:flex;align-items:center;gap:16px;">
-          <div><div class="pipe-node-title" style="font-size:13px;color:var(--blue);">n8n MCP — Automated Workflow Engine</div><div class="pipe-node-sub">SCHEDULE · TRIGGER · ROUTE · DISPATCH · LOOP · REMOTE</div></div>
-          <div style="margin-left:auto;display:flex;gap:7px;">
-            <div class="tag tag-blue">DAILY CRON</div><div class="tag tag-blue">POST TRIGGER</div><div class="tag tag-blue">MCP SERVER</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:0 0 0 94px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);">↓  Structured payloads → Claude Skills (dispatch / loop / remote)</div>
-    <div style="display:flex;gap:10px;">
-      <div style="width:82px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;border-right:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2);text-align:right;letter-spacing:1px;">INTELLIGENCE</div>
-      </div>
-      <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
-        <div class="pipe-node" style="border-color:var(--gold);background:var(--gold-bg);">
-          <div class="pipe-node-title" style="color:var(--gold);">Claude Sonnet</div><div class="pipe-node-sub">REASONING · REPORTS</div>
-        </div>
-        <div class="pipe-node" style="border-color:var(--gold);background:var(--gold-bg);">
-          <div class="pipe-node-title" style="color:var(--gold);">Claude Skills</div><div class="pipe-node-sub">DISPATCH / LOOP</div>
-        </div>
-        <div class="pipe-node" style="border-color:var(--sage);background:rgba(107,126,90,0.06);">
-          <div class="pipe-node-title" style="color:var(--sage);">Mac Mini Cluster</div><div class="pipe-node-sub">LOCAL vLLMs · PRIVATE</div>
-        </div>
-        <div class="pipe-node" style="border-color:rgba(42,88,136,0.3);background:var(--blue-pale);">
-          <div class="pipe-node-title" style="color:var(--blue);">Perplexity Sonar</div><div class="pipe-node-sub">WEB CONTEXT</div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:0 0 0 94px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);">↓  Intelligence reports → Multi-channel delivery</div>
-    <div style="display:flex;gap:10px;">
-      <div style="width:82px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;border-right:1px solid var(--border);">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2);text-align:right;letter-spacing:1px;">DELIVERY</div>
-      </div>
-      <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-        <div class="pipe-node"><div class="pipe-node-title">iOS App</div><div class="pipe-node-sub">CLAUDE MOBILE</div></div>
-        <div class="pipe-node"><div class="pipe-node-title">iOS Widget</div><div class="pipe-node-sub">LIVE SCORE</div></div>
-        <div class="pipe-node"><div class="pipe-node-title">iMessage Alert</div><div class="pipe-node-sub">P1 THREAT ONLY</div></div>
-        <div class="pipe-node"><div class="pipe-node-title">Claude Remote</div><div class="pipe-node-sub">QUERY ANYTIME</div></div>
-        <div class="pipe-node"><div class="pipe-node-title">Media Team</div><div class="pipe-node-sub">EMAIL · APP</div></div>
-      </div>
-    </div>
+  <div class="card" style="border-left:3px solid var(--blue);margin-bottom:10px;">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:5px;">🌐 COO notifies UAE Cyber Crime</div>
+    <div class="body-t" style="font-size:12px;">Formal report prepared. Actors named. Timestamps documented. Filed to UAE authority. Travel Agent simultaneously boosts Italy visit score — diplomatic soft-power counter.</div>
   </div>
-</div>
-</div>
-</div>
 
-<!-- ══ SLIDE 5 · PLATFORM + MULTI-ACCOUNT ══ -->
-<div class="slide" id="s5">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">05 · Coverage — Platforms, Accounts &amp; Time</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">Every Platform. Every Account.<br>Every Year. One System.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:24px;">The system doesn't monitor one account on one platform. It scans 10+ accounts simultaneously, cross-correlates patterns, and queries across 5+ years of history to answer questions no manual team ever could.</div>
-  <div class="grid-2" style="flex:1;gap:16px;">
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="card">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;">Platform Intelligence</div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:7px;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📸</div>
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Instagram</span><div class="tag tag-green">LIVE</div></div>
-              <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);">Threat classification · Campaign detection · ER trends · Thumbnail analysis · Comparative benchmarking</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:7px;background:#010101;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🎵</div>
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">TikTok</span><div class="tag tag-gold">PHASE 1</div></div>
-              <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);">Comment sentiment · Duet monitoring · Viral trajectory · Sound/trend correlation</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:7px;background:#FF0000;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">▶</div>
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">YouTube</span><div class="tag tag-gold">PHASE 1</div></div>
-              <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);">Video comment NLP · Thumbnail A/B · Watch-time analysis · Reaction video tracking</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:7px;background:#1877F2;display:flex;align-items:center;justify-content:center;font-size:14px;color:white;font-weight:700;flex-shrink:0;">f</div>
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Facebook</span><div class="tag tag-blue">PHASE 2</div></div>
-              <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--muted);">Arabic community sentiment · Share context · Demographic breakdown</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="gold-card">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;">Multi-Account Parallel Scan</div>
-        <div class="body-text" style="font-size:12px;margin-bottom:12px;">One n8n run scans 10+ accounts simultaneously — @faz3, @maktoum_mrm, @HHShkMohd, and any benchmark account. Cross-account pattern detection reveals coordinated campaigns that target multiple royal accounts at once.</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <div class="tag tag-gold">@faz3</div><div class="tag tag-gold">@maktoum_mrm</div>
-          <div class="tag tag-gold">@HHShkMohd</div><div class="tag tag-sage">CUSTOM BENCHMARKS</div>
-          <div class="tag tag-sage">WISDOM-SHARING TARGETS</div>
-        </div>
-      </div>
-      <div class="card" style="flex:1;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;">Historical Memory — 5+ Years</div>
-        <div class="body-text" style="font-size:12px;margin-bottom:10px;">The system archives everything and queries across time. Example questions it can answer instantly:</div>
-        <div style="display:flex;flex-direction:column;gap:7px;">
-          <div style="background:var(--bg2);border-radius:6px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink2);">"How did Ramadan perform on IG vs TikTok, last 5 years?"</div>
-          <div style="background:var(--bg2);border-radius:6px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink2);">"When did the Italian campaign first appear — and in which account?"</div>
-          <div style="background:var(--bg2);border-radius:6px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink2);">"Show all National Day posts across 3 years — engagement comparison."</div>
-          <div style="background:var(--bg2);border-radius:6px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink2);">"Has @goat.58501309 appeared on @HHShkMohd's account as well?"</div>
-        </div>
-      </div>
-    </div>
+  <div class="gcard">
+    <div style="font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:5px;">This is a subset.</div>
+    <div class="body-t" style="font-size:12px;">HH asked one question. The system connected social media intelligence, defense procurement, legal escalation, and diplomatic strategy — autonomously.</div>
   </div>
-</div>
-</div>
-</div>
+</section>
 
-<!-- ══ SLIDE 6 · DELIVERABLES ══ -->
-<div class="slide" id="s6">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">06 · Intelligence Deliverables</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">Reports Built for<br>Leaders Who Act.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:24px;">Every report is designed for a specific decision-maker with a specific time window. HH receives what he needs to act. The media team receives what they need to moderate. Legal receives what they need to escalate.</div>
-  <div class="grid-3" style="flex:1;">
-    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);">Daily Alert</div>
-        <div class="tag tag-red">P1 THREATS ONLY</div>
-      </div>
-      <div class="body-text" style="font-size:12px;flex:1;">Sent only when a critical event is detected — impersonator, coordinated campaign spike, phishing attack, viral smear. One paragraph. One action. Delivered via <strong style="color:var(--ink);">iMessage directly to phone</strong>.</div>
-      <div class="rule-full"></div><div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted2);">TRIGGER: THREAT SCORE &gt; 0.9 · AUTO-SENDS</div>
-    </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);">Weekly Intelligence</div>
-        <div class="tag tag-gold">SUNDAY AUTO</div>
-      </div>
-      <div class="body-text" style="font-size:12px;flex:1;">Interactive HTML slideshow. All posts from the week: sentiment, threats, trends, best/worst content, 3 strategic recommendations. Viewable on <strong style="color:var(--ink);">iOS Claude app</strong> or iOS widget.</div>
-      <div class="rule-full"></div><div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted2);">MOBILE-READY · 5 MIN READ · AUTO-DELIVERED</div>
-    </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);">Monthly Strategy</div>
-        <div class="tag tag-blue">EXECUTIVE</div>
-      </div>
-      <div class="body-text" style="font-size:12px;flex:1;">Cross-platform synthesis, content category scoring, 5-year trend comparison, editorial calendar recommendations. Delivered to <strong style="color:var(--ink);">media team via email and app</strong>.</div>
-      <div class="rule-full"></div><div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted2);">PDF + HTML · MEDIA TEAM + LEADERSHIP</div>
-    </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);">Event Monitor</div>
-        <div class="tag tag-red">LIVE</div>
-      </div>
-      <div class="body-text" style="font-size:12px;flex:1;">During WGS, GITEX, Ramadan, or any high-reach post — the system monitors in near-real-time. Anomaly detected within minutes. Moderation team alerted before the post goes viral in the wrong direction.</div>
-      <div class="rule-full"></div><div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted2);">N8N WEBHOOK · REAL-TIME TRIGGER</div>
-    </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);">Competitive Intel</div>
-        <div class="tag tag-gold">ON-DEMAND</div>
-      </div>
-      <div class="body-text" style="font-size:12px;flex:1;">Profile any public account in 60 seconds. Benchmark content strategy, audience tone, engagement patterns. Advise accounts HH wants to collaborate with, learn from, or mentor.</div>
-      <div class="rule-full"></div><div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted2);">ALREADY DELIVERED · MAKTOUM REPORT</div>
-    </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);">Ask Claude</div>
-        <div class="tag tag-green">ALWAYS ON</div>
-      </div>
-      <div class="body-text" style="font-size:12px;flex:1;">Any authorised user queries the entire intelligence layer from the <strong style="color:var(--ink);">Claude iOS app</strong>. "How did the storm post perform?" — answered in seconds. No dashboard. No login. Just ask.</div>
-      <div class="rule-full"></div><div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted2);">CLAUDE REMOTE · iOS / ANDROID</div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+<!-- ═══════════════════════ 5 · COUNTER-INTELLIGENCE ═══════════════════════ -->
+<section class="section" id="s5">
+  <div class="eyebrow">05 · Counter-Intelligence</div>
+  <div class="display" style="font-size:34px;margin-bottom:22px;">The system doesn't only detect.<br><span style="font-style:italic;color:var(--muted);">It recommends.</span></div>
 
-<!-- ══ SLIDE 7 · DEPARTMENT + INFRASTRUCTURE ══ -->
-<div class="slide" id="s7">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">07 · The Department Model &amp; Infrastructure</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">One Founding Engineer.<br>The Output of an Entire Department.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:24px;">This is not a replacement for a creative team. This is the intelligence layer that makes every team smarter. One AI systems engineer directs and maintains the machine — the machine does the work of ten.</div>
-  <div class="grid-2" style="flex:1;gap:18px;">
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="card">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
-          <span>Traditional Social Intelligence Team</span>
-          <div class="tag tag-red">HIGH COST</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--bg2);border-radius:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);">Analysts ×2 · Strategist · Data Scientist</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--red);">AED 700K+/yr</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--bg2);border-radius:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);">Security · Moderation ×2</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--red);">AED 200K+/yr</span></div>
-          <div style="padding:7px 10px;background:var(--red-pale);border-radius:5px;display:flex;justify-content:space-between;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Annual Total</span><span style="font-family:'Playfair Display',serif;font-size:17px;color:var(--red);font-weight:600;">AED 900K–1.2M</span></div>
-          <div class="body-text" style="font-size:11px;padding:4px 0;">Business hours only · Holidays · Turnover · Inconsistent output · No cross-platform · No historical memory</div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="gold-card">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
-          <span>AI CMO Department</span>
-          <div class="tag tag-green">LEAN &amp; SCALABLE</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--bg);border-radius:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--ink2);">AI Founding Engineer ×1</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);">Existing resource</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--bg);border-radius:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--ink2);">Claude API + n8n + Apify</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);">~AED 18K/yr</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--bg);border-radius:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--ink2);">Mac Mini cluster × 3–5 units</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);">AED 18–30K one-time</span></div>
-          <div style="padding:7px 10px;background:var(--gold-bg);border:1px solid var(--border);border-radius:5px;display:flex;justify-content:space-between;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Year 1 Total (tools only)</span><span style="font-family:'Playfair Display',serif;font-size:17px;color:var(--gold);font-weight:600;">AED ~50K</span></div>
-          <div class="body-text" style="font-size:11px;padding:4px 0;color:var(--green);">24/7 operation · No holidays · No turnover · Instant scaling · All platforms · 5-year memory</div>
-        </div>
-      </div>
-      <div class="card">
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px;">Why Mac Mini Cluster?</div>
-        <div class="body-text" style="font-size:12px;">Multiple Mac Mini units run small open-source vLLMs locally — Qwen, Mistral, LLaMA variants. This enables: sensitive data to never leave the building, Claude to offload pre-processing tasks, parallel workloads across accounts, and a foundation for future projects. The Mac Mini infrastructure is not just for this project — it is the foundation for the entire AI engineering function.</div>
-      </div>
-    </div>
+  <div class="card" style="border-top:2px solid var(--green);margin-bottom:10px;">
+    <div style="font-size:18px;margin-bottom:8px;">✍️</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;">Poetry = Natural Shield</div>
+    <div class="body-t" style="font-size:12px;margin-bottom:8px;">Every poetry post drives 3× comment surge. Fans respond with their own verses — organically crowding out bots. The audience becomes the moderator.</div>
+    <span class="tag tg">Proven · all poetry posts</span>
   </div>
-</div>
-</div>
-</div>
 
-<!-- ══ SLIDE 8 · ROADMAP ══ -->
-<div class="slide" id="s8">
-<div class="slide-inner">
-<div class="stagger" style="flex:1;display:flex;flex-direction:column;">
-  <div class="label">08 · Roadmap</div>
-  <div class="h-display" style="font-size:42px;margin-bottom:10px;">Phase 0 Is Complete.<br>We Are Ready for Phase 1.</div>
-  <div class="body-text" style="max-width:640px;margin-bottom:26px;">Three months of prototyping produced five operational reports and a working pipeline. Department approval unlocks the full system within 30 days.</div>
-  <div class="grid-3" style="flex:1;">
-    <div class="card" style="position:relative;overflow:hidden;border-color:rgba(42,112,80,0.25);">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);"></div>
-      <div class="tag tag-green" style="margin-bottom:10px;">COMPLETE</div>
-      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);margin-bottom:4px;">Phase 0 · Proof</div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px;">NOV 2025 – MAR 2026</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>Instagram pipeline live (Apify)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>41,154 comments classified</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>5 interactive HTML reports</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>Italian campaign tracked &amp; charted</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>Comparative analysis (Maktoum)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>n8n MCP orchestration backbone</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>Claude HHPO skill system built</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--green);padding-left:14px;position:relative;"><span style="position:absolute;left:0;">✓</span>Poetry signal + bot timing discovered</div>
-      </div>
-    </div>
-    <div class="card" style="position:relative;overflow:hidden;border-color:var(--border);">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);"></div>
-      <div class="tag tag-gold" style="margin-bottom:10px;">ON APPROVAL · 30–90 DAYS</div>
-      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);margin-bottom:4px;">Phase 1 · Operations</div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px;">MAR – JUN 2026</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>TikTok + YouTube monitoring live</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>10+ account parallel scan</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>Weekly reports auto-delivered</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>iMessage + iOS widget delivery</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>Mac Mini cluster setup (3–5 units)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>5-year historical archive build</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>Official API access request</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span>Claude Remote query interface</div>
-      </div>
-    </div>
-    <div class="card" style="position:relative;overflow:hidden;border-color:rgba(42,88,136,0.2);">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);"></div>
-      <div class="tag tag-blue" style="margin-bottom:10px;">6–12 MONTHS</div>
-      <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);margin-bottom:4px;">Phase 2 · Intelligence</div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px;">FULL AI CMO DEPARTMENT</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Unified reputation score (all platforms)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Predictive content performance model</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Auto editorial calendar (monthly)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Arabic fine-tuned sentiment model</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Wisdom-sharing advisory (HH outreach)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Facebook community intelligence</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Expand: multi-account family office</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11.5px;color:var(--muted);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--blue);">→</span>Foundation for future AI projects</div>
-      </div>
-    </div>
+  <div class="card" style="border-top:2px solid var(--gold);margin-bottom:10px;">
+    <div style="font-size:18px;margin-bottom:8px;">🕌</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;">Cultural Events Reset the Feed</div>
+    <div class="body-t" style="font-size:12px;margin-bottom:8px;">Political attacks from specific communities can be countered: a Quran competition, Ramadan event, or humanitarian post floods the account with national pride — displacing negativity organically.</div>
+    <span class="tag to">Strategic recommendation</span>
   </div>
-</div>
-</div>
-</div>
 
-<!-- ══ SLIDE 9 · THE ASK ══ -->
-<div class="slide" id="s9" style="position:relative;overflow:hidden;">
-<div style="position:absolute;inset:0;pointer-events:none;">
-  <div style="position:absolute;bottom:-180px;right:-180px;width:560px;height:560px;background:radial-gradient(ellipse,rgba(154,112,48,0.09) 0%,transparent 65%);"></div>
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--border-soft) 25%,var(--border-soft) 75%,transparent);"></div>
-</div>
-<div style="height:100%;display:flex;flex-direction:column;justify-content:center;padding:72px 88px;">
-<div class="stagger" style="display:flex;flex-direction:column;gap:38px;">
-  <div>
-    <div class="label">09 · The Ask</div>
-    <div class="h-display" style="font-size:54px;font-weight:700;margin-bottom:12px;letter-spacing:-1px;">Create the Department.<br>The System Is <em>Ready.</em></div>
-    <div class="body-text" style="max-width:660px;font-size:15px;line-height:1.78;">The proof of concept is operational. Reports have been delivered. Threats have been found. The pipeline is built. The only thing missing is the formal mandate to run this as a permanent intelligence function — and the infrastructure to scale it.</div>
+  <div class="card" style="border-top:2px solid var(--blue);margin-bottom:18px;">
+    <div style="font-size:18px;margin-bottom:8px;">🌿</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;">Nature Content = 92.5% Safe</div>
+    <div class="body-t" style="font-size:12px;margin-bottom:8px;">Cityscape, storm, and nature posts achieve the highest safe-comment ratios. Acts as an algorithmic palette cleanser — publish after a high-risk post to reset the feed.</div>
+    <span class="tag tb">avg across all nature posts</span>
   </div>
-  <div class="grid-3">
-    <div class="gold-card">
-      <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);margin-bottom:10px;">What I Am Asking For</div>
-      <div style="display:flex;flex-direction:column;gap:7px;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Role: AI Founding Engineer — CMO Systems</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Tool budget: ~AED 18K/yr (Claude, n8n, Apify)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Mac Mini cluster: 3–5 units (AED 18–30K)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Direct channel to media &amp; social teams</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Official platform API access (Meta, TikTok)</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Mandate to build future AI projects on same infra</div>
-      </div>
-    </div>
-    <div class="gold-card">
-      <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);margin-bottom:10px;">What You Get in 30 Days</div>
-      <div style="display:flex;flex-direction:column;gap:7px;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Full IG + TikTok + YouTube intelligence live</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Weekly reports auto-delivered every Sunday</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· P1 threat alerts via iMessage — real time</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· iOS widget: live reputation score</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Claude Remote: ask anything, any time</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· 10+ accounts scanned in parallel</div>
-      </div>
-    </div>
-    <div class="gold-card">
-      <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);margin-bottom:10px;">Why This Cannot Wait</div>
-      <div style="display:flex;flex-direction:column;gap:7px;">
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· 1,460+ threats already live in the data — unacted on</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Followers being defrauded using HH's name today</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Italian campaign active since December — undetected</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· Every unmonitored post is an unmanaged risk</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);">· The system is built — only approval is missing</div>
-      </div>
-    </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:18px;">
-    <div style="width:44px;height:1.5px;background:var(--gold);flex-shrink:0;"></div>
-    <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-style:italic;line-height:1.5;">The question is not whether to do this.<br>The question is how long to wait.</div>
-  </div>
-</div>
-</div>
-<div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold) 35%,var(--gold) 65%,transparent);"></div>
-</div>
 
-</div><!-- /deck -->
+  <div style="padding:14px 16px;background:var(--white);border:1px solid var(--line);border-radius:8px;">
+    <div class="body-t" style="font-size:13px;">💡 Intelligence without action is noise. This system connects the two — detection leads directly to a recommended response.</div>
+  </div>
+</section>
 
-<div id="nav">
-  <button class="nbtn" id="prv">‹</button>
-  <div id="dots"></div>
-  <button class="nbtn" id="nxt">›</button>
-</div>
-<script>
-const slides=document.querySelectorAll('.slide');
-const N=slides.length;
-let cur=0;
-const dotsEl=document.getElementById('dots');
-const dotEls=[];
-for(let i=0;i<N;i++){
-  const d=document.createElement('div');
-  d.className='dot'+(i===0?' active':'');
-  d.style.margin='0 3px';
-  d.onclick=()=>go(i);
-  dotsEl.appendChild(d);
-  dotEls.push(d);
-}
-function go(idx){
-  if(idx<0||idx>=N)return;
-  slides[cur].classList.remove('active');
-  slides[cur].classList.add('exit');
-  setTimeout(()=>slides[cur].classList.remove('exit'),800);
-  dotEls[cur].classList.remove('active');
-  cur=idx;
-  slides[cur].classList.add('active');
-  dotEls[cur].classList.add('active');
-  document.getElementById('counter').textContent=(cur+1)+' / '+N;
-  document.getElementById('prog').style.width=((cur+1)/N*100)+'%';
-}
-document.getElementById('prv').onclick=()=>go(cur-1);
-document.getElementById('nxt').onclick=()=>go(cur+1);
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key===' ')go(cur+1);
-  if(e.key==='ArrowLeft')go(cur-1);
-});
-let tx=0;
-document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
-document.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-tx;
-  if(Math.abs(dx)>40)dx<0?go(cur+1):go(cur-1);
-});
-go(0);
-</script>
+<!-- ═══════════════════════ 6 · REPORTS ═══════════════════════ -->
+<section class="section" id="s6">
+  <div class="eyebrow">06 · Report Design</div>
+  <div class="display" style="font-size:34px;margin-bottom:22px;">Right depth.<br>Right person.<br>Right moment.</div>
+
+  <div class="card" style="border-top:2px solid var(--red);margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;">Alert</div>
+      <span class="tag tr">iMessage</span>
+    </div>
+    <div class="body-t" style="font-size:12px;margin-bottom:6px;">P1 threat only. One sentence. One action. Sent instantly to HH's phone.</div>
+    <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--faint);">TRIGGER: SCORE &gt; 0.9</div>
+  </div>
+
+  <div class="card" style="border-top:2px solid var(--gold);margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;">Weekly</div>
+      <span class="tag to">iOS App</span>
+    </div>
+    <div class="body-t" style="font-size:12px;margin-bottom:6px;">Minimal interactive HTML. 5-minute read. Best/worst post. 3 recommendations.</div>
+    <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--faint);">SUNDAY · AUTO-DELIVERED</div>
+  </div>
+
+  <div class="card" style="border-top:2px solid var(--blue);margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;">Monthly</div>
+      <span class="tag tb">Media Team</span>
+    </div>
+    <div class="body-t" style="font-size:12px;margin-bottom:6px;">Cross-platform synthesis. Editorial calendar. 5-year trends. Email and app to media team.</div>
+    <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--faint);">HTML + PDF</div>
+  </div>
+
+  <div class="card" style="border-top:2px solid var(--green);margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;">On Demand</div>
+      <span class="tag tg">Claude Remote</span>
+    </div>
+    <div class="body-t" style="font-size:12px;margin-bottom:6px;">Ask anything from the iOS app. Full depth pulled when needed. Always on.</div>
+    <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--faint);">5+ YEARS MEMORY</div>
+  </div>
+
+  <!-- Depth ladder -->
+  <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;">Depth — pulled by HH, not pushed</div>
+  <div class="ladder">
+    <div class="ladder-step" style="background:rgba(140,40,32,0.03);">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--red);margin-bottom:4px;">PUSH</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink2);">1 sentence<br>if P1</div>
+    </div>
+    <div class="ladder-step">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--amber);margin-bottom:4px;">WEEKLY</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink2);">Minimal<br>brief</div>
+    </div>
+    <div class="ladder-step">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--gold);margin-bottom:4px;">PULL</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink2);">Per-post<br>analysis</div>
+    </div>
+    <div class="ladder-step">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);margin-bottom:4px;">DEEP</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink2);">6-month<br>aggregate</div>
+    </div>
+    <div class="ladder-step" style="background:rgba(42,104,69,0.04);">
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--green);margin-bottom:4px;">ANY</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink2);">5+ years<br>all platforms</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 7 · BIGGER PICTURE ═══════════════════════ -->
+<section class="section" id="s7">
+  <div class="eyebrow">07 · The Bigger Picture</div>
+  <div class="display" style="font-size:38px;margin-bottom:12px;">This was one conversation.</div>
+  <div class="display" style="font-size:38px;font-style:italic;font-weight:400;color:var(--muted);margin-bottom:24px;">About one account.</div>
+  <div class="body-t" style="font-size:14px;margin-bottom:24px;">The same ecosystem handles fleet dispatch, defense intelligence, travel planning, software development, and operational management — all under one command layer, all talking to each other, available from a single prompt.</div>
+
+  <div class="gcard" style="margin-bottom:10px;">
+    <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);margin-bottom:6px;">Sovereign Infrastructure</div>
+    <div class="body-t" style="font-size:12px;">Mac Mini cluster in Dubai. Zero foreign cloud. All data on UAE servers.</div>
+  </div>
+  <div class="gcard" style="margin-bottom:10px;">
+    <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);margin-bottom:6px;">Built to Grow</div>
+    <div class="body-t" style="font-size:12px;">Add a new agent, product, or data source. The architecture absorbs it. SkyWarden is already in the stack.</div>
+  </div>
+  <div class="gcard" style="margin-bottom:28px;">
+    <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);margin-bottom:6px;">One Human in Charge</div>
+    <div class="body-t" style="font-size:12px;">CAIO owns the AI layer. GM owns the company. Every agent reports up. No ambiguity.</div>
+  </div>
+
+  <div style="border-left:2px solid var(--gold);padding-left:16px;">
+    <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-style:italic;line-height:1.55;">The goal is never the report.<br>The goal is the decision<br>the report makes possible.</div>
+  </div>
+</section>
+
 </body>
 </html>

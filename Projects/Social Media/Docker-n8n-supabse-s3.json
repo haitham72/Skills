@@ -1,0 +1,178 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "new",
+        "formDescription": "new",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [208, -144],
+      "id": "7b8242c8-9959-4715-9d97-ce0ce8cbddb4",
+      "name": "On form submission",
+      "webhookId": "bb2b5766-4a34-4219-a968-9a9726d92c95"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://supabase_kong_User:8000/storage/v1/object/private_bucket/new.png",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_SUPABASE_SECRET_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_SUPABASE_SECRET_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [400, -256],
+      "id": "db526fe6-6030-4b9c-bbbf-4cb23414fb47",
+      "name": "upload"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "http://supabase_kong_User:8000/storage/v1/object/private_bucket/new.png",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_SUPABASE_SECRET_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_SUPABASE_SECRET_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [400, 48],
+      "id": "6430927f-ad9c-4029-b72f-f6f989a63b27",
+      "name": "delete"
+    },
+    {
+      "parameters": {
+        "url": "http://supabase_kong_User:8000/storage/v1/object/private_bucket/new.png",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [400, -96],
+      "id": "183d547e-9ecc-4105-9012-0ed16d8a2918",
+      "name": "get",
+      "credentials": {
+        "supabaseApi": {
+          "id": "kpWSYIV7Ar98rQTI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://supabase_kong_User:8000/storage/v1/object/list/private_bucket",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"prefix\": \"\",\n  \"limit\": 100,\n  \"offset\": 0,\n  \"sortBy\": {\n    \"column\": \"name\",\n    \"order\": \"asc\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [624, -256],
+      "id": "3332e489-34db-4a7e-87cf-0f556929f985",
+      "name": "get1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "kpWSYIV7Ar98rQTI",
+          "name": "Supabase account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "data": [
+            {
+              "filename": "new.png",
+              "mimetype": "image/png",
+              "size": 62771
+            }
+          ],
+          "submittedAt": "2026-04-03T09:11:37.314-04:00",
+          "formMode": "test"
+        },
+        "binary": {
+          "data": {
+            "mimeType": "image/png",
+            "fileType": "image",
+            "fileExtension": "png",
+            "data": "filesystem-v2",
+            "fileName": "new.png",
+            "id": "filesystem-v2:workflows/W0tEbDISp2tuzD0P/executions/temp/binary_data/29273589-9978-4a0c-b5b7-48c854e7727f",
+            "fileSize": "62.8 kB",
+            "bytes": 62771
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f0fb8dfe-fe04-4572-90f3-c35633a7d258",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "48b784b8c2f583924588569bc19c9f69f4446218b9b094609b8f6e789dde2a70"
+  },
+  "id": "W0tEbDISp2tuzD0P",
+  "tags": []
+}
